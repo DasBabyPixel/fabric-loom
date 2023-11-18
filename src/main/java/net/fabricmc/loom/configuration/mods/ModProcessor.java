@@ -219,7 +219,7 @@ public class ModProcessor {
 				ZipUtils.replace(output, accessWidener.right(), accessWidener.left());
 			}
 
-			stripNestedJars(output);
+//			stripNestedJars(output);
 			remapJarManifestEntries(output);
 			dependency.copyToCache(project, output, null);
 		}
