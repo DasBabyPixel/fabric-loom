@@ -319,6 +319,7 @@ public class ModProcessor {
 
 		final Pair<byte[], String> accessWidener = configureRemapper.accessWidenerMap.get(tag);
 		final Path output = destinations.get(tag);
+
 		if (accessWidener != null) {
 			project.getLogger().info("Replaced Access Widener in {}", output);
 			ZipUtils.replace(output, accessWidener.right(), accessWidener.left());
