@@ -306,11 +306,6 @@ public class ModProcessor {
 			configureRemapper.outputConsumerMap.get(tag).close();
 
 			final Path output = destinations.get(tag);
-			final Pair<byte[], String> accessWidener = configureRemapper.accessWidenerMap.get(tag);
-
-			if (accessWidener != null) {
-				ZipUtils.replace(output, accessWidener.right(), accessWidener.left());
-			}
 
 			completeNested(configureRemapper, tag, destinations);
 
@@ -321,6 +316,13 @@ public class ModProcessor {
 
 	private void completeNested(ConfigureRemapper configureRemapper, InputTag tag, Map<InputTag, Path> destinations) throws IOException {
 		configureRemapper.outputConsumerMap.get(tag).close();
+
+		final Pair<byte[], String> accessWidener = configureRemapper.accessWidenerMap.get(tag);
+		final Path output = destinations.get(tag);
+		if (accessWidener != null) {
+			project.getLogger().info("Replaced Access Widener in {}", output);
+			ZipUtils.replace(output, accessWidener.right(), accessWidener.left());
+		}
 
 		if (!configureRemapper.nestedMap.containsKey(tag)) {
 			return;
